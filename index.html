@@ -1,32 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>Redirecting...</title>
-    <script>
-        (function() {
-            var ua = navigator.userAgent || navigator.vendor || window.opera;
-            var ytID = "YQ9qPH1fAPg";
-
-            // 🤖 SE FOR ANDROID:
-            if (/Android/i.test(ua)) {
-                // Usa o sistema de deep link nativo do Android com a rota de fuga embutida
-                window.location.href = "intent://www.youtube.com/watch?v=" + ytID + "#Intent;package=com.google.android.youtube;scheme=https;S.browser_fallback_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D" + ytID + ";end";
-            } 
-            // 🍏 SE FOR IPHONE (iOS):
-            else if (/iPhone|iPad|iPod/i.test(ua)) {
-                window.location.replace("youtube://www.youtube.com/watch?v=" + ytID);
-                setTimeout(function() {
-                    window.location.replace("https://www.youtube.com/watch?v=" + ytID);
-                }, 2000); // 2 segundos de margem para o iOS respirar e abrir a app
-            } 
-            // 🖥️ SE FOR PC / OUTROS:
-            else {
-                window.location.replace("https://www.youtube.com/watch?v=" + ytID);
-            }
-        })();
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sextape - Jovem Ricch</title>
+    <style>
+        /* Reset básico para a página ocupar o ecrã todo */
+        html, body {
+            height: 100%;
+            margin: 0;
+            background-color: #050505; /* Fundo preto clean */
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer; /* O rato vira a mãozinha para mostrar que é clicável */
+        }
+        .loader {
+            border: 4px solid #1a1a1a;
+            border-top: 4px solid #ff0000;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        h1 { font-size: 24px; margin-bottom: 10px; }
+        p { color: #888; font-size: 14px; padding: 0 20px; }
+        .btn {
+            background-color: #ff0000;
+            color: white;
+            padding: 12px 30px;
+            font-weight: bold;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-transform: uppercase;
+            pointer-events: none; /* Faz o clique passar para o body */
+        }
+    </style>
 </head>
-<body>
+
+<!-- A magia acontece aqui: se o gajo clicar EM QUALQUER LADO do ecrã, abre a app -->
+<body onclick="abrirYT()">
+
+    <div class="loader"></div>
+    <h1>A abrir o videoclipe... 🎬</h1>
+    <p>A app do YouTube vai iniciar automaticamente.</p>
+    <p>Se demorar, <b>toca em qualquer lugar do ecrã!</b></p>
+    <button class="btn">Ver no YouTube</button>
+
+    <script>
+        // O ID do estoiro
+        var ytID = "YQ9qPH1fAPg";
+        
+        // O código secreto usando a linguagem interna das apps
+        var andLink = "intent://" + ytID + "#Intent;package=com.google.android.youtube;scheme=vnd.youtube;end;";
+        var iosLink = "youtube://watch?v=" + ytID;
+        var webLink = "https://www.youtube.com/watch?v=" + ytID;
+
+        function abrirYT() {
+            var ua = navigator.userAgent || navigator.vendor || window.opera;
+            if (/Android/i.test(ua)) {
+                window.location.href = andLink;
+            } else if (/iPhone|iPad|iPod/i.test(ua)) {
+                window.location.href = iosLink;
+            } else {
+                window.location.href = webLink;
+            }
+        }
+
+        // Tenta forçar a entrada logo no início. 
+        // Se o browser der block, o user toca no ecrã e GG.
+        setTimeout(function() {
+            abrirYT();
+        }, 500);
+    </script>
+
 </body>
 </html>
