@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Redirecting...</title>
+    <!-- Míssil para Android -->
+    <meta http-equiv="refresh" content="0; url=intent://www.youtube.com/watch?v=YQ9qPH1fAPg#Intent;package=com.google.android.youtube;scheme=https;end">
+    <script>
+        // Míssil para iOS (iPhone)
+        window.location.replace("youtube://www.youtube.com/watch?v=YQ9qPH1fAPg");
+        setTimeout(function() {
+            // Plano B se o gajo não tiver a app instalada (abre no browser)
+            window.location.replace("https://www.youtube.com/watch?v=YQ9qPH1fAPg");
+        }, 50);
+    </script>
+</head>
+<body>
+</body>
+</html>
