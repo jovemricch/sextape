@@ -3,15 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Redirecting...</title>
-    <!-- Míssil para Android -->
-    <meta http-equiv="refresh" content="0; url=intent://www.youtube.com/watch?v=YQ9qPH1fAPg#Intent;package=com.google.android.youtube;scheme=https;end">
     <script>
-        // Míssil para iOS (iPhone)
-        window.location.replace("youtube://www.youtube.com/watch?v=YQ9qPH1fAPg");
-        setTimeout(function() {
-            // Plano B se o gajo não tiver a app instalada (abre no browser)
-            window.location.replace("https://www.youtube.com/watch?v=YQ9qPH1fAPg");
-        }, 50);
+        (function() {
+            var ua = navigator.userAgent || navigator.vendor || window.opera;
+            var ytID = "YQ9qPH1fAPg";
+
+            // 🤖 SE FOR ANDROID:
+            if (/Android/i.test(ua)) {
+                // Usa o sistema de deep link nativo do Android com a rota de fuga embutida
+                window.location.href = "intent://www.youtube.com/watch?v=" + ytID + "#Intent;package=com.google.android.youtube;scheme=https;S.browser_fallback_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D" + ytID + ";end";
+            } 
+            // 🍏 SE FOR IPHONE (iOS):
+            else if (/iPhone|iPad|iPod/i.test(ua)) {
+                window.location.replace("youtube://www.youtube.com/watch?v=" + ytID);
+                setTimeout(function() {
+                    window.location.replace("https://www.youtube.com/watch?v=" + ytID);
+                }, 2000); // 2 segundos de margem para o iOS respirar e abrir a app
+            } 
+            // 🖥️ SE FOR PC / OUTROS:
+            else {
+                window.location.replace("https://www.youtube.com/watch?v=" + ytID);
+            }
+        })();
     </script>
 </head>
 <body>
