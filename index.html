@@ -50,7 +50,7 @@
 <body onclick="abrirYT()">
 
     <div class="loader"></div>
-    <h1>A abrir o videoclipe... 📼</h1>
+    <h1>A abrir o videoclipe... 🎬</h1>
     <p>A app do YouTube vai iniciar automaticamente.</p>
     <p>Se demorar, <b>toca em qualquer lugar do ecrã!</b></p>
     <button class="btn">Ver no YouTube</button>
@@ -59,9 +59,10 @@
         // O ID do estoiro
         var ytID = "YQ9qPH1fAPg";
         
-        // O código secreto usando a linguagem interna das apps
-        var andLink = "intent://" + ytID + "#Intent;package=com.google.android.youtube;scheme=vnd.youtube;end;";
-        var iosLink = "youtube://watch?v=" + ytID;
+      
+        // O "action.VIEW" força o YouTube a matar o vídeo antigo e carregar o novo
+        var andLink = "intent://www.youtube.com/watch?v=" + ytID + "#Intent;scheme=https;package=com.google.android.youtube;action=android.intent.action.VIEW;end;";
+        var iosLink = "youtube://www.youtube.com/watch?v=" + ytID;
         var webLink = "https://www.youtube.com/watch?v=" + ytID;
 
         function abrirYT() {
