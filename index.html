@@ -9,7 +9,7 @@
         html, body {
             height: 100%;
             margin: 0;
-            background-color: #050505;
+            background-color: #050505; /* Fundo preto clean */
             color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, sans-serif;
             display: flex;
@@ -17,40 +17,20 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            cursor: pointer;
-            overflow: hidden; /* Para o ecrã não dar scroll se o video bugar */
+            cursor: pointer; /* O rato vira a mãozinha para mostrar que é clicável */
         }
-
-        /* 🔥 MAGIA DO VIDEO CANVAS AQUI 🔥 */
-        #bg-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Preenche o ecrã sem achatar a imagem */
-            z-index: -1; /* Fica atrás de tudo */
-            opacity: 0.4; /* Fica escurecido para o texto brilhar */
-            pointer-events: none; /* Ignora cliques para não estragar a hiperligação do YouTube */
-        }
-
         .loader {
-            border: 4px solid rgba(255, 255, 255, 0.2);
+            border: 4px solid #1a1a1a;
             border-top: 4px solid #ff0000;
             border-radius: 50%;
             width: 40px;
             height: 40px;
             animation: spin 1s linear infinite;
             margin-bottom: 20px;
-            z-index: 1; /* Garante que fica à frente do vídeo */
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        /* Mete o texto e botão à frente do vídeo e adiciona umas sombras dripadas */
-        h1, p, .btn { z-index: 1; position: relative; } 
-        h1 { font-size: 24px; margin-bottom: 10px; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); }
-        p { color: #ddd; font-size: 14px; padding: 0 20px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
-        
+        h1 { font-size: 24px; margin-bottom: 10px; }
+        p { color: #888; font-size: 14px; padding: 0 20px; }
         .btn {
             background-color: #ff0000;
             color: white;
@@ -61,19 +41,13 @@
             border-radius: 8px;
             margin-top: 20px;
             text-transform: uppercase;
-            pointer-events: none; /* Faz o clique passar direto para o body */
-            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.5); /* Luz vermelha marota debaixo do botão */
+            pointer-events: none; /* Faz o clique passar para o body */
         }
     </style>
 </head>
 
+<!-- A magia acontece aqui: se o gajo clicar EM QUALQUER LADO do ecrã, abre a app -->
 <body onclick="abrirYT()">
-
-    <!-- O TEU CANVAS LOOPING VEM AQUI -->
-    <!-- Se mudares o nome do ficheiro, muda onde diz "canvas.mp4" -->
-    <video id="bg-video" autoplay loop muted playsinline>
-        <source src="canvas.mp4" type="video/mp4">
-    </video>
 
     <div class="loader"></div>
     <h1>A abrir o videoclipe... 📼</h1>
@@ -85,6 +59,7 @@
         // O ID do estoiro
         var ytID = "YQ9qPH1fAPg";
         
+        // O código secreto usando a linguagem interna das apps
         var andLink = "intent://" + ytID + "#Intent;package=com.google.android.youtube;scheme=vnd.youtube;end;";
         var iosLink = "youtube://watch?v=" + ytID;
         var webLink = "https://www.youtube.com/watch?v=" + ytID;
@@ -100,6 +75,8 @@
             }
         }
 
+        // Tenta forçar a entrada logo no início. 
+        // Se o browser der block, o user toca no ecrã e GG.
         setTimeout(function() {
             abrirYT();
         }, 500);
